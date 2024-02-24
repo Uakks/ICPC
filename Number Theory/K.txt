@@ -1,0 +1,8 @@
+import sys
+
+results = []
+
+for s in sys.stdin:
+    lst = s.split()
+    a, b, c = map(int, lst)
+    print(pow(a, b, c))

@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+    for (int q = 0; q < t; q++) {
+        int n;
+        bool works = false;
+        cin >> n;
+        for (int i = 2; i < sqrt(2*n); i++) {
+            if (i % 2 == 0) {
+                if (n % i == i/2) {
+                    cout << n << " = ";
+                    for (int j = n / i - i/2 + 1; j < n/i+i/2; j++) {
+                        cout << j << " + ";
+                    }
+                    cout << n/i + i/2 << endl;
+                    works = true;
+                    break;
+                }
+            } else {
+                if (n % i == 0) {
+                    cout << n << " = ";
+                    for (int j = n / i - i/2; j < n / i + i/2; j++) {
+                        cout << j << " + ";
+                    }
+                    cout << n/i + i/2 << endl;
+                    works = true;
+                    break;
+                }
+            }
+        }
+        if (!works) {
+            cout << "IMPOSSIBLE" << endl;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+#define ll long long
+
+using namespace std;
+
+int gcd(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return gcd(b, a%b);
+}
+
+vector<int> primes;
+
+void sieve() {
+    vector<int> all (10001, 1);
+    all[0] = 0;
+    all[1] = 0;
+    int i = 2, j;
+    while (i < 10001) {
+        if (all[i] != 0){
+            primes.push_back(i);
+            j = i + i;
+            while (j < 10001) {
+                all[j] = 0;
+                j += i;
+            }
+        }
+        i++;
+    }
+}
+
+ll phi(ll n)
+{
+    ll res = n;
+
+    // this loop runs sqrt(n / ln(n)) times
+    for (ll i=0; primes[i]*primes[i] <= n; i++)
+    {
+        if (n % primes[i]== 0)
+        {
+            // subtract multiples of p[i] from r
+            res -= (res / primes[i]);
+
+            // Remove all occurrences of p[i] in n
+            while (n % primes[i]== 0)
+                n /= primes[i];
+        }
+    }
+
+    // when n has prime factor greater
+    // than sqrt(n)
+    if (n > 1)
+        res -= (res / n);
+
+    return res;
+
+}
+
+ll arr[10001];
+
+void lst() {
+    for (int i = 0; i < 10001; i++) {
+        arr[i] = phi(i);
+    }
+}
+
+int main()
+{
+    sieve();
+    lst();
+    vector<ll> sums(10001, 0), answers(10001, 0);
+    for (int i = 1; i <= 10000; i++) {
+        sums[i] = arr[i] + sums[i-1];
+    }
+
+    for (int i = 1; i <= 10000; i++) {
+        answers[i] = sums[i] * sums[i];
+    }
+
+    int t;
+    cin >> t;
+    for (int q = 0; q < t; q++) {
+        int n;
+        cin >> n;
+        cout << answers[n] << endl;
+    }
+}

@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    vector<int> all (10000000, 1);
+    all[0] = 0;
+    all[1] = 0;
+    int i = 2, j;
+    vector<int> primes;
+    while (i < sqrt(10000000)) {
+        if (all[i] != 0){
+            primes.push_back(i);
+            j = i + i;
+            while (j < 10000000) {
+                all[j] = 0;
+                j += i;
+            }
+        }
+        i++;
+    }
+    vector<int> nums;
+    int a, b;
+    while (cin >> a >> b) {
+        int cnt = 0;
+        for (int i = a; i <= b; i++) {
+            if (all[i] != 0) {
+                cnt++;
+            }
+        }
+        cout << cnt << endl << endl;
+    }
+}

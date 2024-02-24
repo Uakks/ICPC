@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    vector<int> all (sqrt(1000000000), 1);
+    all[0] = 0;
+    all[1] = 0;
+    int i = 2, j;
+    vector<int> primes;
+    while (i < sqrt(1e9)) {
+        if (all[i] != 0){
+            primes.push_back(i);
+            j = i + i;
+            while (j < sqrt(1e9)) {
+                all[j] = 0;
+                j += i;
+            }
+        }
+        i++;
+    }
+
+    int n;
+    while (cin >> n) {
+        if (n == 0) {
+            break;
+        }
+        int a = n, b = n;
+        for (int i = 0; i < primes.size(); i++) {
+            if (a % primes[i] == 0) {
+                n -= (a / primes[i]);
+                a = n;
+                while (b % primes[i] == 0) {
+                    b /= primes[i];
+                }
+            }
+        }
+        if (b > 1) {
+            n -= n / b;
+        }
+        cout << n << endl;
+    }
+}

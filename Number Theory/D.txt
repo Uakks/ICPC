@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    long long t, cnt = 0;
+    cin >> t;
+    for (int i = 1; i <= t; i++) {
+        cnt += (t/i);
+    }
+    cout << cnt;
+}
