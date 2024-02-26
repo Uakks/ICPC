@@ -1,0 +1,103 @@
+//
+//  main.cpp
+//  Solution
+//
+//  Created by Uali Sopygali on 17.02.2024.
+//
+
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+#define ll long long
+
+using namespace std;
+
+ll fact(int n) {
+    ll res = 1;
+    for (int i = 1; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+void next_combination (vector<int> & a, int n) {
+//    int d = n - (int)a.size();
+    while (true) {
+        for (int i = 0; i < a.size(); i++) {
+            cout << a[i] << " ";
+        }
+        cout << endl;
+        int m = -1;
+        for (int i = (int)a.size()-1; i >= 0; i--) {
+            if (a[i] > a.size()-i) {
+                m = i;
+                a[i]--;
+                break;
+            }
+        }
+        if (m == -1) {
+            break;
+        }
+        for (int i = m+1; i < a.size(); i++) {
+            a[i] = a[i-1] - 1;
+        }
+    }
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    for (int q = 0; q < t; q++) {
+        ll n;
+        string s, tmp, fin;
+        cin >> s >> n;
+        sort(s.begin(), s.end());
+        tmp = s;
+        vector<bool> exists(s.size(), 1);
+        vector<ll> nums, cnts;
+        for (int i = 0; i < s.length(); i++) {
+            nums.push_back(s[i]-96);
+        }
+
+        int i = 1, size = (int)s.size();
+        while (n > 0) {
+            cnts.push_back(n / fact(size-i));
+            n %= fact(size-i);
+            i++;
+        }
+
+        while (cnts.size() < size) {
+            cnts.push_back(0);
+        }
+
+        for (int i = 0; i < cnts.size(); i++) {
+            cnts[i]++;
+//            cout << cnts[i] << " ";
+        }
+
+        for (int i = 0; i < cnts.size(); i++) {
+            int cnt = 0;
+            for (int j = 0; j < exists.size(); j++) {
+                if (exists[j]) {
+                    cnt++;
+                }
+                if (cnt == cnts[i]) {
+                    fin.push_back(tmp[j]);
+                    exists[j] = false;
+                    break;
+                }
+            }
+        }
+        cout << fin << endl;
+//        for (int i = 0; i < nums.size(); i++) {
+//            continue;
+//        }
+//        cout << endl;
+//        (n-i-1)! increase i each time and find correct value;
+    }
+}

@@ -1,0 +1,38 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
+#include <iomanip>
+#define ll long long
+
+using namespace std;
+
+ll fact(int n) {
+    ll res = 1;
+    for (int i = 1; i <= n; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+int main()
+{
+    freopen("perm.in", "r", stdin);
+    freopen("perm.out", "w", stdout);
+    int n;
+    cin >> n;
+    vector<int> nums;
+    for (int i = 1; i <= n; i++) {
+        nums.push_back(i);
+    }
+    do {
+        for (int i = 0; i < n; i++) {
+            cout << nums[i] << " ";
+        }
+        cout << endl;
+    } while (next_permutation(nums.begin(), nums.end()));
+}
+
+
